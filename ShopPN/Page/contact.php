@@ -1,5 +1,5 @@
 <?php
-require 'connect.php'; 
+require 'connect.php';
 session_start();
 ?>
 <!DOCTYPE html>
@@ -117,30 +117,30 @@ session_start();
                 </div>
             </div>
             <div class="box-icon" style="height: 60px;">
-            <div class="box-search">
-            <form method="GET" action="Shop.php" class="search-form">
-  <button type="submit" class="search__button">
-    <div class="search__icon">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </div>
-  </button>
-  
-  <input type="text" name="search" id="searchInput" class="search__input" placeholder="Search...">
-  
-  <button type="button" onclick="startVoiceSearch()" class="mic__button">
-    <div class="mic__icon">
-      🎤
-    </div>
-  </button>
-</form>
-</div>
-                <a href="login.php" class="box-user" >
+                <div class="box-search">
+                    <form method="GET" action="Shop.php" class="search-form">
+                        <button type="submit" class="search__button">
+                            <div class="search__icon">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                        </button>
+
+                        <input type="text" name="search" id="searchInput" class="search__input" placeholder="Search...">
+
+                        <button type="button" onclick="startVoiceSearch()" class="mic__button">
+                            <div class="mic__icon">
+                                🎤
+                            </div>
+                        </button>
+                    </form>
+                </div>
+                <a href="login.php" class="box-user">
                     <i class="fa-regular fa-user user"></i>
                     <?php if (isset($_SESSION['user_email'])): ?>
                         <p>Welcome, <?php echo htmlspecialchars($_SESSION['user_email']); ?>!</p>
                         <a href="logout.php" class="btn btn-logout" style="height: 40px; width: 70px;">Logout</a>
                     <?php else: ?>
-                        <p><a href="login.php" style="background-color: #fff;"  class="btn btn-primar y">Login</a></p>
+                        <p><a href="login.php" style="background-color: #fff;" class="btn btn-primar y">Login</a></p>
                     <?php endif; ?>
                 </a>
                 <a href="" class="box-heart" style="padding-top: 10px;">
@@ -172,6 +172,10 @@ session_start();
     <div class="box-map">
         <div class="box-iframe">
             <form method="POST" action="contact.php">
+                <div>
+                    <h3>Working time</h3>
+                    <h4> Monday - Friday : 8:00 - 17:00</h4>
+                </div>
                 <div class="form-group">
                     <label for="email">Your Email:</label>
                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
@@ -183,11 +187,14 @@ session_start();
                         required></textarea>
                 </div>
                 <button type="submit" name="submit" class="btn btn-primary">Send</button>
+
             </form>
         </div>
         <div class="box-iframe">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62861.05874166012!2d105.68291917044557!3d10.032023456596368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0883fbc944b83%3A0x77fc34233e5e1320!2zTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1745482781055!5m2!1svi!2s"width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62861.05874166012!2d105.68291917044557!3d10.032023456596368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0883fbc944b83%3A0x77fc34233e5e1320!2zTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1745482781055!5m2!1svi!2s"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
             <div class="in-frame-1">
                 <svg xmlns="http://www.w3.org/2000/svg" id="Capa_1" height="512" viewBox="0 0 512 512" width="512">
                     <g>
@@ -207,7 +214,7 @@ session_start();
                     Cần Thơ
                 </h2>
                 <div class="location">
-                   <!-- điền địa chỉ -->
+                    <!-- điền địa chỉ -->
                 </div>
             </div>
         </div>
@@ -217,32 +224,32 @@ session_start();
 
     <!-- Phần footer -->
     <?php include 'footer.php'; ?>
-    
+
     <script>
-function startVoiceSearch() {
-    if (!('webkitSpeechRecognition' in window)) {
-        alert("Trình duyệt không hỗ trợ tìm kiếm bằng giọng nói!");
-        return;
-    }
+        function startVoiceSearch() {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("Trình duyệt không hỗ trợ tìm kiếm bằng giọng nói!");
+                return;
+            }
 
-    const recognition = new webkitSpeechRecognition();
-    recognition.lang = "vi-VN";
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = "vi-VN";
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
 
-    recognition.start();
+            recognition.start();
 
-    recognition.onresult = function(event) {
-        const voiceResult = event.results[0][0].transcript;
-        document.getElementById("searchInput").value = voiceResult;
-        document.querySelector("form.search-form").submit();
-    };
+            recognition.onresult = function (event) {
+                const voiceResult = event.results[0][0].transcript;
+                document.getElementById("searchInput").value = voiceResult;
+                document.querySelector("form.search-form").submit();
+            };
 
-    recognition.onerror = function(event) {
-        console.error("Lỗi khi nhận diện giọng nói: ", event.error);
-    };
-}
-</script>
+            recognition.onerror = function (event) {
+                console.error("Lỗi khi nhận diện giọng nói: ", event.error);
+            };
+        }
+    </script>
 </body>
 
 </html>
